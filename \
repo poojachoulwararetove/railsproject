@@ -1,0 +1,19 @@
+class OrderRiskController < ApplicationController
+	def get_order
+		puts params[:order_id]
+		str="Kount"
+		@Order=OrderRisk.where(order_id: params[:order_id])
+		if
+		@Order.where({ source: "external", recommendation: "accept",'message Like ?': "%#{str}%" })
+		#response={sucess: '1', status_code: '200', message: 'order cleared  risk!!'}
+
+		
+		response=Order.joins(:order_risk)
+		render json: response
+		else
+		response={sucess: '0', status_code: '200', message: 'order have  risk!!'}
+		render  json: response	
+		end
+	end
+end
+
